@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (C) 2013 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,12 +18,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mdtp_day_picker_selected_date_layout"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/mdtp_date_picker_header_height"
-    android:layout_weight="1"
+    android:layout_height="100dp"
     android:background="@color/mdtp_accent_color"
     android:gravity="top"
+    android:orientation="vertical"
     android:padding="16dp"
-    android:orientation="vertical">
+    android:visibility="gone">
 
     <com.wdullaer.materialdatetimepicker.AccessibleTextView
         android:id="@+id/mdtp_date_picker_year"
@@ -32,11 +31,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="4dp"
+        android:background="@android:color/transparent"
         android:gravity="center_vertical"
         android:includeFontPadding="false"
-        android:background="@android:color/transparent"
         android:textColor="@color/mdtp_date_picker_selector"
         android:textSize="@dimen/mdtp_datepicker_year_selection_text_size"
+        android:visibility="gone"
         tools:text="2015" />
 
     <com.wdullaer.materialdatetimepicker.AccessibleLinearLayout
@@ -44,22 +44,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:background="@android:color/transparent"
         android:clickable="true"
         android:orientation="horizontal"
-        android:background="@android:color/transparent"
-        android:textColor="@color/mdtp_date_picker_selector" >
+        android:textColor="@color/mdtp_date_picker_selector">
+
         <TextView
             android:id="@+id/mdtp_date_picker_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:background="@android:color/transparent"
             android:duplicateParentState="true"
             android:gravity="left"
             android:includeFontPadding="false"
-            android:background="@android:color/transparent"
             android:textColor="@color/mdtp_date_picker_selector"
             android:textSize="@dimen/mdtp_datepicker_selection_text_size"
-            tools:text="Fri, May 15"/>
+            android:visibility="gone"
+            tools:text="Fri, May 15" />
     </com.wdullaer.materialdatetimepicker.AccessibleLinearLayout>
 
 </LinearLayout>

@@ -18,6 +18,7 @@ package com.wdullaer.materialdatetimepicker.date;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -42,6 +43,8 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.DialogFragment;
+
 import com.wdullaer.materialdatetimepicker.HapticFeedbackController;
 import com.wdullaer.materialdatetimepicker.R;
 import com.wdullaer.materialdatetimepicker.Utils;
@@ -51,6 +54,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.TimeZone;
 
 /**
@@ -245,13 +249,29 @@ public class DatePickerDialog extends AppCompatDialogFragment implements
         this.initialize(callBack, cal);
     }
 
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        Dialog dialog = getDialog();
+//        if (dialog != null)
+//        {
+//            int width = ViewGroup.LayoutParams.MATCH_PARENT;
+//            int height = ViewGroup.LayoutParams.MATCH_PARENT;
+//            dialog.getWindow().setLayout(width, height);
+//        }
+//    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStyle(DialogFragment.STYLE_NORMAL,
+                android.R.style.Theme_Black_NoTitleBar_Fullscreen);
         final Activity activity = requireActivity();
         activity.getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setStyle(AppCompatDialogFragment.STYLE_NO_TITLE, 0);
+        activity.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT);
         mCurrentView = UNINITIALIZED;
         if (savedInstanceState != null) {
             mCalendar.set(Calendar.YEAR, savedInstanceState.getInt(KEY_SELECTED_YEAR));
@@ -449,6 +469,8 @@ public class DatePickerDialog extends AppCompatDialogFragment implements
 
         if (getDialog() == null) {
             view.findViewById(R.id.mdtp_done_background).setVisibility(View.GONE);
+        } else {
+            getDialog().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
 
         updateDisplay(false);
