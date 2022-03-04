@@ -41,6 +41,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.DialogFragment;
@@ -128,6 +129,9 @@ public class DatePickerDialog extends AppCompatDialogFragment implements
     private TextView mYearView;
     private DayPickerGroup mDayPickerView;
     private YearPickerView mYearPickerView;
+    private LinearLayout mHeaderDateSelected;
+    private LinearLayout mDoneButton;
+    private Toolbar mToolbar;
 
     private int mCurrentView = UNINITIALIZED;
 
@@ -150,9 +154,12 @@ public class DatePickerDialog extends AppCompatDialogFragment implements
     private Version mVersion;
     private ScrollOrientation mScrollOrientation;
     private TimeZone mTimezone;
-    private Locale mLocale = Locale.getDefault();
+    private Locale mLocale = new Locale("id_ID", "ID"); // sampean cek manih mas
     private DefaultDateRangeLimiter mDefaultLimiter = new DefaultDateRangeLimiter();
     private DateRangeLimiter mDateRangeLimiter = mDefaultLimiter;
+    private int mHeaderDateSelectedVisiblity = View.VISIBLE;
+    private int mDoneButtonVisibility = View.VISIBLE;
+    private int mToolbarVisibility = View.VISIBLE;
 
     private HapticFeedbackController mHapticFeedbackController;
 
@@ -264,14 +271,10 @@ public class DatePickerDialog extends AppCompatDialogFragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NORMAL,
-                android.R.style.Theme_Black_NoTitleBar_Fullscreen);
         final Activity activity = requireActivity();
         activity.getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setStyle(AppCompatDialogFragment.STYLE_NO_TITLE, 0);
-        activity.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.MATCH_PARENT);
         mCurrentView = UNINITIALIZED;
         if (savedInstanceState != null) {
             mCalendar.set(Calendar.YEAR, savedInstanceState.getInt(KEY_SELECTED_YEAR));
@@ -454,7 +457,14 @@ public class DatePickerDialog extends AppCompatDialogFragment implements
             mAccentColor = Utils.getAccentColorFromThemeIfAvailable(getActivity());
         }
         if (mDatePickerHeaderView != null) mDatePickerHeaderView.setBackgroundColor(Utils.darkenColor(mAccentColor));
-        view.findViewById(R.id.mdtp_day_picker_selected_date_layout).setBackgroundColor(mAccentColor);
+        mHeaderDateSelected = view.findViewById(R.id.mdtp_day_picker_selected_date_layout);
+        mHeaderDateSelected.setBackgroundColor(mAccentColor);
+        mDoneButton = view.findViewById(R.id.mdtp_done_background);
+        mDoneButton.setVisibility(mDoneButtonVisibility);
+        mHeaderDateSelected.setVisibility(mHeaderDateSelectedVisiblity);
+        mToolbar = view.findViewById(R.id.toolbar);
+        mToolbar.setVisibility(mToolbarVisibility);
+        mToolbar.setNavigationOnClickListener(v -> dismiss());
 
         // Buttons can have a different color
         if (mOkColor == null) {
@@ -468,9 +478,7 @@ public class DatePickerDialog extends AppCompatDialogFragment implements
         cancelButton.setTextColor(mCancelColor);
 
         if (getDialog() == null) {
-            view.findViewById(R.id.mdtp_done_background).setVisibility(View.GONE);
-        } else {
-            getDialog().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            mDoneButton.setVisibility(View.GONE);
         }
 
         updateDisplay(false);
@@ -1042,6 +1050,23 @@ public class DatePickerDialog extends AppCompatDialogFragment implements
     @SuppressWarnings("unused")
     public void setOnDismissListener(DialogInterface.OnDismissListener onDismissListener) {
         mOnDismissListener = onDismissListener;
+    }
+
+    public void setFullScreen(){
+        setStyle(DialogFragment.STYLE_NORMAL,
+                android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+    }
+
+    public void hideHeaderDateSelected(){
+        mHeaderDateSelectedVisiblity = View.GONE;
+    }
+
+    public void hideDoneButton(){
+        mDoneButtonVisibility = View.GONE;
+
+    }
+    public void showToolbar(){
+        mToolbarVisibility = View.VISIBLE;
     }
 
     /**

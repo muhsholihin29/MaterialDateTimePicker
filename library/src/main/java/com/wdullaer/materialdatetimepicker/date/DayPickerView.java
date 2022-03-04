@@ -147,6 +147,7 @@ public abstract class DayPickerView extends RecyclerView implements OnDateChange
             if (pageListener != null) pageListener.onPageChanged(getMostVisiblePosition());
         }
         // refresh the view with the new parameters
+        mAdapter.getItemCount();
         setAdapter(mAdapter);
     }
 

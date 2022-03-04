@@ -101,6 +101,16 @@ public class DatePickerFragment extends Fragment implements DatePickerDialog.OnD
             dpd.vibrate(vibrateDate.isChecked());
             dpd.dismissOnPause(dismissDate.isChecked());
             dpd.showYearPickerFirst(showYearFirst.isChecked());
+            dpd.setFullScreen();
+            dpd.hideHeaderDateSelected();
+            dpd.hideDoneButton();
+            dpd.showToolbar();
+            dpd.autoDismiss(true);
+            dpd.setOnDateSetListener((view12, year, monthOfYear, dayOfMonth) -> {
+                Log.d("mytag", String.valueOf(year) + monthOfYear + dayOfMonth);
+            });
+
+            dpd.setFirstDayOfWeek(Calendar.MONDAY);
             dpd.setVersion(showVersion2.isChecked() ? DatePickerDialog.Version.VERSION_2 : DatePickerDialog.Version.VERSION_1);
             if (modeCustomAccentDate.isChecked()) {
                 dpd.setAccentColor(Color.parseColor("#9C27B0"));

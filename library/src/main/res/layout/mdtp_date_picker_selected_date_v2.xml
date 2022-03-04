@@ -22,8 +22,7 @@
     android:background="@color/mdtp_accent_color"
     android:gravity="top"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:visibility="gone">
+    android:padding="16dp">
 
     <com.wdullaer.materialdatetimepicker.AccessibleTextView
         android:id="@+id/mdtp_date_picker_year"
@@ -36,7 +35,6 @@
         android:includeFontPadding="false"
         android:textColor="@color/mdtp_date_picker_selector"
         android:textSize="@dimen/mdtp_datepicker_year_selection_text_size"
-        android:visibility="gone"
         tools:text="2015" />
 
     <com.wdullaer.materialdatetimepicker.AccessibleLinearLayout
@@ -60,7 +58,6 @@
             android:includeFontPadding="false"
             android:textColor="@color/mdtp_date_picker_selector"
             android:textSize="@dimen/mdtp_datepicker_selection_text_size"
-            android:visibility="gone"
             tools:text="Fri, May 15" />
     </com.wdullaer.materialdatetimepicker.AccessibleLinearLayout>
 

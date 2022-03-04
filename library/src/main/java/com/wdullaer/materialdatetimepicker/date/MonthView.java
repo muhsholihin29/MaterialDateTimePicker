@@ -573,30 +573,30 @@ public abstract class MonthView extends View {
 
         // Localised short version of the string is not available on API < 18
         if (Build.VERSION.SDK_INT < 18) {
-            String dayName = new SimpleDateFormat("E", locale).format(day.getTime());
-            String dayLabel = dayName.toUpperCase(locale).substring(0, 1);
+            String dayName = new SimpleDateFormat("EEE", locale).format(day.getTime());
+            String dayLabel = dayName.toUpperCase(locale);
 
             // Chinese labels should be fetched right to left
             if (locale.equals(Locale.CHINA) || locale.equals(Locale.CHINESE) || locale.equals(Locale.SIMPLIFIED_CHINESE) || locale.equals(Locale.TRADITIONAL_CHINESE)) {
                 int len = dayName.length();
-                dayLabel = dayName.substring(len - 1, len);
+                dayLabel = dayName;
             }
 
             // Most hebrew labels should select the second to last character
             if (locale.getLanguage().equals("he") || locale.getLanguage().equals("iw")) {
                 if (mDayLabelCalendar.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY) {
                     int len = dayName.length();
-                    dayLabel = dayName.substring(len - 2, len - 1);
+                    dayLabel = dayName;
                 } else {
                     // I know this is duplication, but it makes the code easier to grok by
                     // having all hebrew code in the same block
-                    dayLabel = dayName.toUpperCase(locale).substring(0, 1);
+                    dayLabel = dayName.toUpperCase(locale);
                 }
             }
 
             // Catalan labels should be two digits in lowercase
             if (locale.getLanguage().equals("ca"))
-                dayLabel = dayName.toLowerCase().substring(0, 2);
+                dayLabel = dayName.toLowerCase();
 
             // Correct single character label in Spanish is X
             if (locale.getLanguage().equals("es") && day.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY)
@@ -606,7 +606,7 @@ public abstract class MonthView extends View {
         }
         // Getting the short label is a one liner on API >= 18
         if (weekDayLabelFormatter == null) {
-            weekDayLabelFormatter = new SimpleDateFormat("EEEEE", locale);
+            weekDayLabelFormatter = new SimpleDateFormat("EEE", locale);
         }
         return weekDayLabelFormatter.format(day.getTime());
     }
