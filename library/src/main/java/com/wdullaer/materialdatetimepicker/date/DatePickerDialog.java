@@ -1059,7 +1059,7 @@ public class DatePickerDialog extends AppCompatDialogFragment implements
     public void setFullScreen(boolean setFullScreen){
         if (setFullScreen) {
             setStyle(DialogFragment.STYLE_NORMAL,
-                    android.R.style.Theme_Black_NoTitleBar);
+                    android.R.style.Theme_Light_NoTitleBar);
         }
     }
 

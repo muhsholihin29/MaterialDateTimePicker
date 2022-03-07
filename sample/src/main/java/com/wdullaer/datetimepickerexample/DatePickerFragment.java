@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -97,6 +98,10 @@ public class DatePickerFragment extends Fragment implements DatePickerDialog.OnD
                         now.get(Calendar.DAY_OF_MONTH)
                 );
             }
+            dpd.setMaxDate(Calendar.getInstance(new Locale("id", "ID")));
+            Calendar cal = Calendar.getInstance(new Locale("id", "ID"));
+            cal.add(Calendar.WEEK_OF_MONTH, -19);
+            dpd.setMinDate(cal);
             dpd.setThemeDark(modeDarkDate.isChecked());
             dpd.vibrate(vibrateDate.isChecked());
             dpd.dismissOnPause(dismissDate.isChecked());
