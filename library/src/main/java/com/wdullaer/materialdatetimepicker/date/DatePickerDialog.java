@@ -159,7 +159,7 @@ public class DatePickerDialog extends AppCompatDialogFragment implements
     private DateRangeLimiter mDateRangeLimiter = mDefaultLimiter;
     private int mHeaderDateSelectedVisiblity = View.VISIBLE;
     private int mDoneButtonVisibility = View.VISIBLE;
-    private int mToolbarVisibility = View.VISIBLE;
+    private int mToolbarVisibility = View.GONE;
 
     private HapticFeedbackController mHapticFeedbackController;
 
@@ -464,6 +464,7 @@ public class DatePickerDialog extends AppCompatDialogFragment implements
         mHeaderDateSelected.setVisibility(mHeaderDateSelectedVisiblity);
         mToolbar = view.findViewById(R.id.toolbar);
         mToolbar.setVisibility(mToolbarVisibility);
+        mToolbar.setBackgroundColor(mAccentColor);
         mToolbar.setNavigationOnClickListener(v -> dismiss());
 
         // Buttons can have a different color
@@ -1052,21 +1053,47 @@ public class DatePickerDialog extends AppCompatDialogFragment implements
         mOnDismissListener = onDismissListener;
     }
 
-    public void setFullScreen(){
-        setStyle(DialogFragment.STYLE_NORMAL,
-                android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+    /**
+     * set dialog full screen, default false
+     */
+    public void setFullScreen(boolean setFullScreen){
+        if (setFullScreen) {
+            setStyle(DialogFragment.STYLE_NORMAL,
+                    android.R.style.Theme_Black_NoTitleBar);
+        }
     }
 
-    public void hideHeaderDateSelected(){
-        mHeaderDateSelectedVisiblity = View.GONE;
+    /**
+     * show header date selected, default true
+     */
+    public void showHeaderDateSelected(boolean showHeaderDateSelected){
+        if (showHeaderDateSelected) {
+            mHeaderDateSelectedVisiblity = View.VISIBLE;
+        } else {
+            mHeaderDateSelectedVisiblity = View.GONE;
+        }
     }
 
-    public void hideDoneButton(){
-        mDoneButtonVisibility = View.GONE;
-
+    /**
+     * show OK Cancel button, default true
+     */
+    public void showDoneButton(boolean showDoneButton){
+        if (showDoneButton){
+            mDoneButtonVisibility = View.VISIBLE;
+        } else {
+            mDoneButtonVisibility = View.GONE;
+        }
     }
-    public void showToolbar(){
-        mToolbarVisibility = View.VISIBLE;
+
+    /**
+     * show toolbar, default false
+     */
+    public void showToolbar(boolean showToolbar){
+        if (showToolbar){
+            mToolbarVisibility = View.VISIBLE;
+        } else {
+            mToolbarVisibility = View.GONE;
+        }
     }
 
     /**

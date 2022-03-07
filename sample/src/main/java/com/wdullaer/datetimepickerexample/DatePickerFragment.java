@@ -101,10 +101,10 @@ public class DatePickerFragment extends Fragment implements DatePickerDialog.OnD
             dpd.vibrate(vibrateDate.isChecked());
             dpd.dismissOnPause(dismissDate.isChecked());
             dpd.showYearPickerFirst(showYearFirst.isChecked());
-            dpd.setFullScreen();
-            dpd.hideHeaderDateSelected();
-            dpd.hideDoneButton();
-            dpd.showToolbar();
+            dpd.setFullScreen(true);
+            dpd.showHeaderDateSelected(false);
+            dpd.showDoneButton(false);
+            dpd.showToolbar(true);
             dpd.autoDismiss(true);
             dpd.setOnDateSetListener((view12, year, monthOfYear, dayOfMonth) -> {
                 Log.d("mytag", String.valueOf(year) + monthOfYear + dayOfMonth);
